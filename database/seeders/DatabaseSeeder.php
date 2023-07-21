@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        if (config('app.env') !== 'production') {
+        if (config('app.env') !== 'local') {
             \App\Models\User::factory()->create();
             \App\Models\Brand::factory(5)->create();
             \App\Models\Suplier::factory(5)->create();

@@ -18,6 +18,11 @@ class AssetImage extends Model
         'main' => 'boolean'
     ];
 
+    public function asset()
+    {
+        return $this->belongsTo(Asset::class);
+    }
+
     public function scopeMain($query)
     {
         return $query->where('main', true);

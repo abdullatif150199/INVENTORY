@@ -10,6 +10,7 @@ use App\Models\Warehouse;
 use App\Services\Setting;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Storage;
 
 class Table extends Component
 {
@@ -110,11 +111,23 @@ class Table extends Component
 
     public function destroy(Asset $asset)
     {
+        
         $this->isDelete = false;
 
         if ($asset->consumable->consumableTransactions()->count() > 0) {
             $this->notify($asset->name . ' punya riwayat pemakaian, tidak bisa dihapus!', 'warning');
             return;
+        }
+
+        if (!empty($asset->assetImages)) {
+            $images = $asset->assetImages;
+            foreach ($images as $image) {
+                $imageName = $image->name;
+                $extension = pathinfo($imageName, PATHINFO_EXTENSION);
+                $thumbImageName = pathinfo($imageName, PATHINFO_FILENAME) . '_thumb.' . $extension;
+                Storage::delete("/assets/" . $imageName);
+                Storage::delete("/assets/" . $thumbImageName);
+            }
         }
 
         DB::transaction(function () use ($asset) {
@@ -128,6 +141,8 @@ class Table extends Component
             $asset->cart()->delete();
             $asset->delete();
         });
+
+        
 
         $this->emit('addToCart');
         $this->notify($asset->name . ' berhasil dihapus');

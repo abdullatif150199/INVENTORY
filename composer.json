@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.11",
         "milon/barcode": "^9.0",
+        "spatie/laravel-backup": "^8.1",
         "wire-elements/modal": "^1.0"
     },
     "require-dev": {

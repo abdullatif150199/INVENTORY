@@ -27,7 +27,6 @@
             </div>
             <div class="flex items-center space-x-8">
                 <livewire:consumable.cart-box />
-
                 <x-button.primary link="{{ route('consumable.checkin') }}" class="flex whitespace-nowrap items-center">
                     <x-icon.plus class="h-4 w-4 mr-1" /> Check in
                 </x-button.primary>
@@ -82,7 +81,7 @@
                             </div>
                             @if (!$loop->first)
                                 <div class="absolute right-0 left-6 -top-px h-px bg-gray-200"></div>
-                            @endif
+                            @endif       
                         </td>
                         <td
                             class="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell {{ !$loop->first ? 'border-t border-gray-200' : '' }}">
